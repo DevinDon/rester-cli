@@ -34,9 +34,16 @@
   "private": true,
   "dependencies": {
     "@iinfinity/logger": "0.3.3",
-    "commander": "^2.20.0"
+    "commander": "^2.20.0",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-replace": "^1.0.0"
   },
   "devDependencies": {
+    "@types/gulp": "^4.0.6",
+    "@types/gulp-concat": "0.0.32",
+    "@types/gulp-replace": "0.0.31",
     "@types/jasmine": "3.3.13",
     "@types/node": "12.6.8",
     "cross-env": "5.2.0",
