@@ -1,0 +1,56 @@
+{
+  "name": "@rester/cli",
+  "version": "0.10.2",
+  "description": "Rester Framework Command-Line Interface.",
+  "main": "dist/index.js",
+  "bin": {
+    "rs": "dist/index.js",
+    "rester": "dist/index.js"
+  },
+  "directories": {
+    "doc": "docs",
+    "example": "src/demo",
+    "test": "src/test"
+  },
+  "files": [
+    "dist",
+    "docs"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "debug": "node --inspect-brk -r ts-node/register src/main/index.ts",
+    "dev": "cross-env MODE=DEV node -r ts-node/register src/main/index.ts",
+    "prod": "cross-env MODE=PROD node dist",
+    "start": "npm run dev",
+    "test": "node node_modules/jasmine/bin/jasmine.js --config=src/test/jasmine.json --reporter=jasmine-console-reporter --require=ts-node/register"
+  },
+  "keywords": [
+    "typescript",
+    "rester",
+    "cli"
+  ],
+  "author": "IInfinity <I.INF@Outlook.com> (https://don.red/)",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@iinfinity/logger": "0.3.3",
+    "commander": "^2.20.0"
+  },
+  "devDependencies": {
+    "@types/jasmine": "3.3.13",
+    "@types/node": "12.6.8",
+    "cross-env": "5.2.0",
+    "jasmine": "3.4.0",
+    "jasmine-console-reporter": "3.1.0",
+    "ts-node": "8.3.0",
+    "typescript": "3.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevinDon/rester-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DevinDon/rester-cli/issues"
+  },
+  "homepage": "https://github.com/DevinDon/rester-cli"
+}
