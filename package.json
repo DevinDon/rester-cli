@@ -14,7 +14,8 @@
   },
   "files": [
     "dist",
-    "docs"
+    "docs",
+    "template"
   ],
   "scripts": {
     "build": "tsc",
@@ -29,7 +30,7 @@
     "rester",
     "cli"
   ],
-  "author": "IInfinity <I.INF@Outlook.com> (https://don.red/)",
+  "author": "IInfinity <I.INF@Outlook.com> (https://blog.don.red)",
   "license": "MIT",
   "private": true,
   "dependencies": {
