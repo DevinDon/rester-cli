@@ -2,6 +2,7 @@
 import * as Commander from 'commander';
 import { dest as save, src as load } from 'gulp';
 import * as replace from 'gulp-replace';
+import * as npm from 'npm';
 import { join, resolve } from 'path';
 import { RegKey, RegVar } from './reg';
 import { getVersionOfGlobal, getVersionOfLocal } from './version';
@@ -47,6 +48,12 @@ Commander
     console.log(`
     Created project: ${name}
     `);
+    npm.load({}, () => {
+      npm.commands.install([], (err, data) => {
+        console.error(err);
+        console.log(data);
+      });
+    });
   });
 
 Commander

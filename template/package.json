@@ -1,0 +1,29 @@
+{
+  "name": "{{ name }}",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsc",
+    "debug": "node --inspect-brk -r ts-node/register src/index.ts",
+    "dev": "cross-env MODE=DEV node -r ts-node/register src/index.ts",
+    "prod": "cross-env MODE=PROD node dist",
+    "start": "npm run dev",
+    "test": "rs test"
+  },
+  "keywords": [
+    "typescript",
+    "rester"
+  ],
+  "dependencies": {
+    "@rester/core": "0.10.2"
+  },
+  "devDependencies": {
+    "@rester/cli": "0.10.2",
+    "@types/jasmine": "3.3.13",
+    "@types/node": "12.6.8",
+    "cross-env": "5.2.0",
+    "jasmine": "3.4.0",
+    "jasmine-console-reporter": "3.1.0",
+    "ts-node": "8.3.0",
+    "typescript": "3.5.3"
+  }
+}
