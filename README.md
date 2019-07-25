@@ -1,7 +1,7 @@
 # Rester CLI
 
-Rester Framework Command-Line Interface.
+[Rester Framework](https://github.com/DevinDon/rester-core) Command-Line Interface.
 
 # Usage
 
-Namespace: `rs` / `rester`
+Command: `rs` / `rester`
