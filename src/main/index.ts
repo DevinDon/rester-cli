@@ -50,14 +50,12 @@ Commander
   });
 
 Commander
-  .command('test <name>')
-  .option('-p, --part')
-  .action((name, option) => {
-    console.log(option.part);
-  });
+  .command('test')
+  .description('Run unit test of Rester project.')
+  .action((name, option) => { });
 
 Commander
   .on('command:*', args => console.error(`
-  No such command: '${args}', see 'rs help' for more detail.
+  No such command: '${args}', see 'rs -h' for more detail.
   `))
   .parse(process.argv);
