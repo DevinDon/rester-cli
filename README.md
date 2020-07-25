@@ -4,13 +4,25 @@ Rester CLI.
 
 [Rester Framework](https://github.com/DevinDon/rester-core) Command-Line Interface.
 
+# Usag
+
+## Generate
+
+### Component
+
+`rester generate component <name>`
+
+or
+
+`r g c <name>`
+
 # [THE MIT LICENSE](https://raw.githubusercontent.com/DevinDon/license/master/THE%20MIT%20LICENSE)
 
 Copyright © 2018+ Devin Don
 
 LICENSE: MIT
 
-Click https://raw.githubusercontent.com/DevinDon/license/master/THE%20MIT%20LICENSE to view a copy of this license.
+Click <https://raw.githubusercontent.com/DevinDon/license/master/THE%20MIT%20LICENSE> to view a copy of this license.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
