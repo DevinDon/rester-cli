@@ -1,5 +1,4 @@
-export const MODEL = `
-export interface {{NAME}} {
+export const MODEL = `export interface {{NAME}} {
 
   id: number;
 
@@ -8,8 +7,7 @@ export interface {{NAME}} {
 }
 `;
 
-export const ENTITY = `
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+export const ENTITY = `import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { {{NAME}} } from './{{name}}.model';
 
 @Entity('{{name}}')
@@ -24,8 +22,7 @@ export class {{NAME}}Entity extends BaseEntity implements {{NAME}} {
 }
 `;
 
-export const VIEW = `
-import { DELETE, GET, Inject, PathVariable, POST, PUT, RequestBody, View } from '@rester/core';
+export const VIEW = `import { DELETE, GET, Inject, PathVariable, POST, PUT, RequestBody, View } from '@rester/core';
 import { {{NAME}}Controller } from './{{name}}.controller';
 import { {{NAME}} } from './{{name}}.model';
 
@@ -48,8 +45,7 @@ export class {{NAME}}View {
 }
 `;
 
-export const CONTROLLER = `
-import { Controller } from '@rester/core';
+export const CONTROLLER = `import { Controller } from '@rester/core';
 import { {{NAME}} } from './{{name}}.model';
 import { {{NAME}}Entity } from './{{name}}.entity';
 
