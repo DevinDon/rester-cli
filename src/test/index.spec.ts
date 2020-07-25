@@ -1,15 +1,11 @@
-// import { asyncHello, hello } from '../main';
+import { program, VERSION } from '../main';
 
-// describe('Hello, world!', () => {
+describe('Version', () => {
 
-//   it('should say `Hello, world!`', done => {
-//     expect(hello('world')).toEqual('Hello, world!');
-//     done();
-//   });
+  it('should output `0.0.0`', done => {
+    program.parse(['-V']);
+    expect(program.args).toEqual(VERSION);
+    done();
+  });
 
-//   it('should async say `Hello, world!`', async done => {
-//     expect(await asyncHello('world')).toEqual('Hello, world!');
-//     done();
-//   });
-
-// });
+});
