@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Command } from 'commander';
 import { generateComponent } from './function';
 import { GenerateType } from './model';
