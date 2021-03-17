@@ -2,10 +2,10 @@
   "name": "@rester/cli",
   "version": "0.10.12",
   "description": "Rester Framework Command-Line Interface.",
-  "main": "dist/index.js",
+  "main": "bin/index.js",
   "bin": {
-    "r": "dist/index.js",
-    "rester": "dist/index.js"
+    "r": "bin/index.js",
+    "rester": "bin/index.js"
   },
   "directories": {
     "doc": "docs",
@@ -13,7 +13,7 @@
     "test": "src/test"
   },
   "files": [
-    "dist",
+    "bin",
     "docs"
   ],
   "scripts": {
@@ -25,6 +25,7 @@
     "prepublishOnly": "npm run clean && npm run build",
     "prod": "cross-env MODE=PROD node bin",
     "start": "node bin",
+    "lint": "eslint . --fix",
     "test": "node node_modules/jasmine/bin/jasmine.js --config=src/test/jasmine.json --reporter=jasmine-console-reporter --require=ts-node/register"
   },
   "keywords": [

@@ -1,8 +1,9 @@
+import { logger } from '@iinfinity/logger';
 import { Command } from 'commander';
-import { generateComponent } from './function';
+import { generateComponent, generateHandler } from './generators';
 import { GenerateType } from './model';
 
-export const VERSION = '0.10.12';
+export const VERSION = require('../../package.json').version;
 export const program = new Command();
 
 // describe this project
@@ -20,10 +21,15 @@ program
       case 'component':
       case 'c':
         generateComponent(name);
-        console.log(`Generated ${name} component.`);
+        logger.info(`Generated ${name} component.`);
+        break;
+      case 'handler':
+      case 'h':
+        generateHandler(name);
+        logger.info(`Generated ${name} handler.`);
         break;
       default:
-        console.warn(`Not support type ${type}`);
+        logger.warn(`Not support type ${type}`);
         break;
     }
   });
@@ -31,6 +37,6 @@ program
 // tips of no such command, parse argv
 program
   .on('command:*', () => {
-    console.error('No such command, see -h.');
+    logger.error('No such command, see -h.');
   })
   .parse(process.argv);
