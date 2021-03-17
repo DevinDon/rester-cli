@@ -44,8 +44,8 @@ export class {{NAME}}View extends BaseView {
 
 export const VIEWS = `import { BaseView, GET, getPagination, Inject, Pagination, PathQuery, View } from '@rester/core';
 import { getMongoRepository, MongoRepository } from 'typeorm';
-import { {{NAME}}Controller } from './aphorism.controller';
-import { {{NAME}}Entity } from './aphorism.entity';
+import { {{NAME}}Controller } from './{{name}}.controller';
+import { {{NAME}}Entity } from './{{name}}.entity';
 
 // create, remove, modify, take, search
 // one, more
