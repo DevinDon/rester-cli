@@ -1,13 +1,11 @@
-export const VIEW = `import { BaseView, DELETE, GET, Handler, Inject, PathVariable, POST, PUT, RequestBody, requiredParamsInFields, View } from '@rester/core';
-import { AccessHandler } from '../common/handlers';
+export const VIEW = `import { BaseView, DELETE, GET, Inject, PathVariable, POST, PUT, RequestBody, requiredParams, View } from '@rester/core';
 import { {{NAME}}Controller } from './{{name}}.controller';
-import { {{NAME}}, {{NAME}}ID, {{NAME}}ParamInsert } from './{{name}}.model';
+import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
 
 // create, remove, modify, take, search
 // one, more
 
 @View('{{name}}')
-@Handler(AccessHandler)
 export class {{NAME}}View extends BaseView {
 
   @Inject()
@@ -15,14 +13,10 @@ export class {{NAME}}View extends BaseView {
 
   @POST()
   async create(
-    @RequestBody() {{name}}: {{NAME}}ParamInsert,
+    @RequestBody() { author, content, timestamp = new Date() }: {{NAME}}InsertParams,
   ) {
-    requiredParamsInFields({{name}}, ['author', 'content']);
-    return this.controller.insertOne({
-      author: {{name}}.author,
-      content: {{name}}.content,
-      timestamp: new Date(),
-    });
+    requiredParams(author, content, timestamp);
+    return this.controller.insertOne({ author, content, timestamp });
   }
 
   @DELETE(':id')
@@ -33,13 +27,9 @@ export class {{NAME}}View extends BaseView {
   @PUT(':id')
   async modify(
     @PathVariable('id') id: {{NAME}}ID,
-    @RequestBody() {{name}}: {{NAME}},
+    @RequestBody() { author, content, timestamp }: {{NAME}}UpdateParams,
   ) {
-    const update: Pick<{{NAME}}, 'author' | 'content'> = {
-      author: {{name}}.author,
-      content: {{name}}.content,
-    };
-    return this.controller.updateOne(id, update);
+    return this.controller.updateOne(id, { author, content, timestamp });
   }
 
   @GET(':id')
@@ -52,17 +42,15 @@ export class {{NAME}}View extends BaseView {
 }
 `;
 
-export const VIEWS = `import { BaseView, GET, getPagination, Handler, Inject, Pagination, PathQuery, View } from '@rester/core';
+export const VIEWS = `import { BaseView, GET, getPagination, Inject, Pagination, PathQuery, View } from '@rester/core';
 import { getMongoRepository, MongoRepository } from 'typeorm';
-import { AccessHandler } from '../common/handlers';
-import { {{NAME}}Controller } from './{{name}}.controller';
-import { {{NAME}}Entity } from './{{name}}.entity';
+import { {{NAME}}Controller } from './aphorism.controller';
+import { {{NAME}}Entity } from './aphorism.entity';
 
 // create, remove, modify, take, search
 // one, more
 
-@View('{{name}}s')
-@Handler(AccessHandler)
+@View('{{name}}')
 export class {{NAME}}sView extends BaseView {
 
   @Inject()

@@ -9,7 +9,7 @@ export class {{NAME}}Entity extends BaseEntity implements {{NAME}} {
 
   @Column()
   @Index()
-  author!: string;
+  author?: string;
 
   @Column()
   content!: string;

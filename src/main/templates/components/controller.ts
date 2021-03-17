@@ -1,7 +1,7 @@
 export const CONTROLLER = `import { BaseController, Controller } from '@rester/core';
 import { getMongoRepository, MongoRepository } from 'typeorm';
 import { {{NAME}}Entity } from './{{name}}.entity';
-import { {{NAME}}ID, {{NAME}}ParamInsert, {{NAME}}ParamUpdate } from './{{name}}.model';
+import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
 
 // insert, delete, update, select
 // one, more
@@ -15,7 +15,7 @@ export class {{NAME}}Controller extends BaseController {
     this.repo = getMongoRepository({{NAME}}Entity);
   }
 
-  async insertOne({{name}}: {{NAME}}ParamInsert) {
+  async insertOne({{name}}: {{NAME}}InsertParams) {
     const key = await this.repo
       .insert({{name}})
       .then(result => result.identifiers[0]);
@@ -27,7 +27,7 @@ export class {{NAME}}Controller extends BaseController {
     return [_id];
   }
 
-  async updateOne(_id: {{NAME}}ID, {{name}}: {{NAME}}ParamUpdate) {
+  async updateOne(_id: {{NAME}}ID, {{name}}: {{NAME}}UpdateParams) {
     await this.repo.update(_id, {{name}});
     return this.repo.findOne(_id);
   }

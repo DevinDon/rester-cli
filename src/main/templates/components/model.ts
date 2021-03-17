@@ -1,7 +1,6 @@
-export const MODEL = `/** {{NAME}} interface */
-export interface {{NAME}} {
+export const MODEL = `export interface {{NAME}} {
 
-  author: string;
+  author?: string;
 
   content: string;
 
@@ -13,7 +12,7 @@ export interface {{NAME}} {
 
 export type {{NAME}}ID = string;
 
-export type {{NAME}}ParamInsert = Pick<{{NAME}}, 'author' | 'content' | 'timestamp'>;
+export type {{NAME}}InsertParams = Pick<{{NAME}}, | 'content'> & Partial<Pick<{{NAME}}, 'author' | 'timestamp'>>;
 
-export type {{NAME}}ParamUpdate = Pick<{{NAME}}, 'author' | 'content'>;
+export type {{NAME}}UpdateParams = {{NAME}}InsertParams;
 `;
