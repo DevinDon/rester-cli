@@ -1,6 +1,6 @@
 {
   "name": "@rester/cli",
-  "version": "0.11.0",
+  "version": "0.13.0",
   "description": "Rester Framework Command-Line Interface.",
   "main": "bin/index.js",
   "bin": {
