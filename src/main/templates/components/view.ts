@@ -50,7 +50,7 @@ import { {{NAME}}Entity } from './{{name}}.entity';
 // create, remove, modify, take, search
 // one, more
 
-@View('{{name}}')
+@View('{{name}}s')
 export class {{NAME}}sView extends BaseView {
 
   @Inject()
