@@ -27,9 +27,9 @@ export class {{NAME}}View extends BaseView {
   @PUT(':id')
   async modify(
     @PathVariable('id') id: {{NAME}}ID,
-    @RequestBody() { author, content, timestamp }: {{NAME}}UpdateParams,
+    @RequestBody() params: {{NAME}}UpdateParams,
   ) {
-    return this.controller.updateOne(id, { author, content, timestamp });
+    return this.controller.updateOne(id, params);
   }
 
   @GET(':id')

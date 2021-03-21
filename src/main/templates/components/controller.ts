@@ -1,4 +1,5 @@
-export const CONTROLLER = `import { BaseController, Controller } from '@rester/core';
+export const CONTROLLER = `import { BaseController, Controller, HTTP404Exception } from '@rester/core';
+import { ObjectID } from 'mongodb';
 import { getMongoRepository, MongoRepository } from 'typeorm';
 import { {{NAME}}Entity } from './{{name}}.entity';
 import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
@@ -22,18 +23,22 @@ export class {{NAME}}Controller extends BaseController {
     return this.repo.findOne(key);
   }
 
-  async deleteOneByID(_id: {{NAME}}ID) {
-    await this.repo.delete({ _id });
-    return [_id];
+  async deleteOneByID(id: {{NAME}}ID) {
+    const _id: any = new ObjectID(id);
+    await this.repo.deleteOne({ _id });
+    return [id];
   }
 
-  async updateOne(_id: {{NAME}}ID, {{name}}: {{NAME}}UpdateParams) {
-    await this.repo.update(_id, {{name}});
-    return this.repo.findOne(_id);
+  async updateOne(id: {{NAME}}ID, {{name}}: {{NAME}}UpdateParams) {
+    const _id: any = new ObjectID(id);
+    await this.repo.updateOne({ _id }, { $set: {{name}} });
+    return this.repo.findOne({ _id });
   }
 
-  async selectOneByID(_id: {{NAME}}ID) {
-    return this.repo.findOne(_id);
+  async selectOneByID(id: {{NAME}}ID) {
+    const _id: any = new ObjectID(id);
+    return this.repo.findOneOrFail({ _id })
+      .catch(() => { throw new HTTP404Exception('{{NAME}} not found.'); });
   }
 
   async selectManyByRandom(length: number) {
