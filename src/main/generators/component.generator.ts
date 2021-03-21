@@ -54,7 +54,7 @@ export const generateComponentView = ({ lowercase, uppercase, folder }: Params) 
       .replace(/\{\{name\}\}/g, lowercase),
   );
   writeFileSync(
-    `${folder}/${lowercase}.views.ts`,
+    `${folder}/${lowercase}s.view.ts`,
     VIEWS
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
