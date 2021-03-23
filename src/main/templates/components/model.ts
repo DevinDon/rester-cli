@@ -12,7 +12,7 @@ export const MODEL = `export interface {{NAME}} {
 
 export type {{NAME}}ID = string;
 
-export type {{NAME}}InsertParams = Pick<{{NAME}}, | 'content'> & Partial<Pick<{{NAME}}, 'author' | 'timestamp'>>;
+export type {{NAME}}InsertParams = Pick<{{NAME}}, 'content'> & Partial<Pick<{{NAME}}, 'author' | 'timestamp'>>;
 
 export type {{NAME}}UpdateParams = {{NAME}}InsertParams;
 `;
