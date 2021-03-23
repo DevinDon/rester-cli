@@ -14,11 +14,14 @@ export class {{NAME}}Entity extends BaseEntity implements {{NAME}} {
   @Column()
   content!: string;
 
-  @Column()
-  timestamp!: Date;
-
   @Column({ default: 0 })
   like!: number;
+
+  @Column()
+  createdAt!: Date;
+
+  @Column()
+  updatedAt!: Date;
 
 }
 `;

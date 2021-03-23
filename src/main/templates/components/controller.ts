@@ -18,7 +18,11 @@ export class {{NAME}}Controller extends BaseController {
 
   async insertOne({{name}}: {{NAME}}InsertParams) {
     const key = await this.repo
-      .insert({{name}})
+      .insert({
+        ...{{name}},
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
       .then(result => result.identifiers[0]);
     return this.repo.findOne(key);
   }
@@ -31,7 +35,7 @@ export class {{NAME}}Controller extends BaseController {
 
   async updateOne(id: {{NAME}}ID, {{name}}: {{NAME}}UpdateParams) {
     const _id: any = new ObjectID(id);
-    await this.repo.updateOne({ _id }, { $set: {{name}} });
+    await this.repo.updateOne({ _id }, { $set: { ...{{name}}, updatedAt: new Date() } });
     return this.repo.findOne({ _id });
   }
 

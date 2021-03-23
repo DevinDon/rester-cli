@@ -1,4 +1,4 @@
-export const VIEW = `import { BaseView, DELETE, GET, Inject, PathVariable, POST, PUT, RequestBody, requiredParams, View } from '@rester/core';
+export const VIEW = `import { BaseResponse, BaseView, cleanify, DELETE, GET, Inject, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, View } from '@rester/core';
 import { {{NAME}}Controller } from './{{name}}.controller';
 import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
 
@@ -13,10 +13,13 @@ export class {{NAME}}View extends BaseView {
 
   @POST()
   async create(
-    @RequestBody() { author, content, timestamp = new Date() }: {{NAME}}InsertParams,
+    @RequestBody() { author, content }: {{NAME}}InsertParams,
   ) {
-    requiredParams(author, content, timestamp);
-    return this.controller.insertOne({ author, content, timestamp });
+    requiredParams(content);
+    return new BaseResponse({
+      statusCode: 201,
+      data: await this.controller.insertOne({ author, content }),
+    });
   }
 
   @DELETE(':id')
@@ -27,9 +30,10 @@ export class {{NAME}}View extends BaseView {
   @PUT(':id')
   async modify(
     @PathVariable('id') id: {{NAME}}ID,
-    @RequestBody() params: {{NAME}}UpdateParams,
+    @RequestBody() { author, content }: {{NAME}}UpdateParams,
   ) {
-    return this.controller.updateOne(id, params);
+    requiredAtLeastOneParam(author, content);
+    return this.controller.updateOne(id, cleanify({ author, content }));
   }
 
   @GET(':id')
