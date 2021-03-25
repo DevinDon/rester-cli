@@ -1,7 +1,7 @@
 import { existsSync, writeFileSync } from 'fs';
 import { mkdir } from 'shelljs';
 import { BASE } from '../constants';
-import { COMPONENT_INDEX, CONTROLLER, ENTITY, MODEL, VIEW, VIEWS } from '../templates';
+import { COMPONENT_INDEX, ENTITY, MODEL, VIEW, VIEWS } from '../templates';
 
 interface Params {
   lowercase: string;
@@ -24,7 +24,7 @@ export const generateComponent = (name: string) => {
   generateComponentModel(params);
   generateComponentEntity(params);
   generateComponentView(params);
-  generateComponentController(params);
+  // generateComponentController(params);
   generateComponentIndex(params);
 };
 
@@ -61,14 +61,14 @@ export const generateComponentView = ({ lowercase, uppercase, folder }: Params) 
   );
 };
 
-export const generateComponentController = ({ lowercase, uppercase, folder }: Params) => {
-  writeFileSync(
-    `${folder}/${lowercase}.controller.ts`,
-    CONTROLLER
-      .replace(/\{\{NAME\}\}/g, uppercase)
-      .replace(/\{\{name\}\}/g, lowercase),
-  );
-};
+// export const generateComponentController = ({ lowercase, uppercase, folder }: Params) => {
+//   writeFileSync(
+//     `${folder}/${lowercase}.controller.ts`,
+//     CONTROLLER
+//       .replace(/\{\{NAME\}\}/g, uppercase)
+//       .replace(/\{\{name\}\}/g, lowercase),
+//   );
+// };
 
 export const generateComponentIndex = ({ lowercase, uppercase, folder }: Params) => {
   writeFileSync(

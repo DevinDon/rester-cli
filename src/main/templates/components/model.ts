@@ -7,6 +7,7 @@ export const MODEL = `export interface {{NAME}} {
   like: number;
 
   createdAt: Date;
+
   updatedAt: Date;
 
 }

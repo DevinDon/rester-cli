@@ -1,5 +1,6 @@
-export const VIEW = `import { BaseResponse, BaseView, cleanify, DELETE, GET, Inject, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, View } from '@rester/core';
-import { {{NAME}}Controller } from './{{name}}.controller';
+export const VIEW = `import { BaseView, cleanify, DELETE, ExistResponse, GET, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, ResterResponse, View } from '@rester/core';
+import { getEntity } from '@rester/orm';
+import { {{NAME}}Collection, {{NAME}}Entity } from './{{name}}.entity';
 import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
 
 // create, remove, modify, take, search
@@ -8,23 +9,28 @@ import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name
 @View('{{name}}')
 export class {{NAME}}View extends BaseView {
 
-  @Inject()
-  private controller!: {{NAME}}Controller;
+  private entity: {{NAME}}Entity;
+  private collection: {{NAME}}Collection;
+
+  async init() {
+    this.entity = getEntity({{NAME}}Entity);
+    this.collection = this.entity.collection;
+  }
 
   @POST()
   async create(
     @RequestBody() { author, content }: {{NAME}}InsertParams,
   ) {
     requiredParams(content);
-    return new BaseResponse({
+    return new ResterResponse({
       statusCode: 201,
-      data: await this.controller.insertOne({ author, content }),
+      data: await this.entity.insertOne({ author, content }),
     });
   }
 
   @DELETE(':id')
   async remove(@PathVariable('id') id: {{NAME}}ID) {
-    return this.controller.deleteOneByID(id);
+    return this.entity.deleteOne(id);
   }
 
   @PUT(':id')
@@ -33,23 +39,28 @@ export class {{NAME}}View extends BaseView {
     @RequestBody() { author, content }: {{NAME}}UpdateParams,
   ) {
     requiredAtLeastOneParam(author, content);
-    return this.controller.updateOne(id, cleanify({ author, content }));
+    return new ExistResponse({
+      data: await this.entity.updateOne(id, cleanify({ author, content })),
+      message: '{{NAME}} not found.',
+    });
   }
 
   @GET(':id')
   async take(
     @PathVariable('id') id: {{NAME}}ID,
   ) {
-    return this.controller.selectOneByID(id);
+    return new ExistResponse({
+      data: await this.entity.findOne(id),
+      message: '{{NAME}} not found.',
+    });
   }
 
 }
 `;
 
-export const VIEWS = `import { BaseView, GET, getPagination, Inject, Pagination, PathQuery, View } from '@rester/core';
-import { getMongoRepository, MongoRepository } from 'typeorm';
-import { {{NAME}}Controller } from './{{name}}.controller';
-import { {{NAME}}Entity } from './{{name}}.entity';
+export const VIEWS = `import { BaseView, GET, PathQuery, View } from '@rester/core';
+import { getEntity, Pagination } from '@rester/orm';
+import { {{NAME}}Collection, {{NAME}}Entity } from './{{name}}.entity';
 
 // create, remove, modify, take, search
 // one, more
@@ -57,13 +68,12 @@ import { {{NAME}}Entity } from './{{name}}.entity';
 @View('{{name}}s')
 export class {{NAME}}sView extends BaseView {
 
-  @Inject()
-  private controller!: {{NAME}}Controller;
-
-  private repo!: MongoRepository<{{NAME}}Entity>;
+  private entity: {{NAME}}Entity;
+  private collection: {{NAME}}Collection;
 
   async init() {
-    this.repo = getMongoRepository({{NAME}}Entity);
+    this.entity = getEntity({{NAME}}Entity);
+    this.collection = this.entity.collection;
   }
 
   @GET()
@@ -73,8 +83,8 @@ export class {{NAME}}sView extends BaseView {
     @PathQuery('take') take: number = 10,
   ): Promise<Pagination<string>> {
     return random
-      ? { list: await this.controller.selectManyByRandom(take) }
-      : getPagination(this.repo, { from, take });
+      ? this.entity.getRandomList({ take })
+      : this.entity.getPagination({ from, take });
   }
 
 }

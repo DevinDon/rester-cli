@@ -1,27 +1,61 @@
-export const ENTITY = `import { BaseEntity, Column, Entity, Index, ObjectID, ObjectIdColumn } from 'typeorm';
-import { {{NAME}} } from './{{name}}.model';
+export const ENTITY = `import { Column, Entity, MongoEntity, ObjectID, PaginationParam } from '@rester/orm';
+import { {{NAME}}, {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
 
-@Entity('{{name}}')
-export class {{NAME}}Entity extends BaseEntity implements {{NAME}} {
-
-  @ObjectIdColumn()
-  _id!: ObjectID;
+@Entity({ name: '{{name}}' })
+export class {{NAME}}Entity extends MongoEntity<{{NAME}}> implements {{NAME}} {
 
   @Column()
-  @Index()
+  _id: ObjectID;
+
+  @Column({ index: true })
   author?: string;
 
   @Column()
-  content!: string;
-
-  @Column({ default: 0 })
-  like!: number;
+  content: string;
 
   @Column()
-  createdAt!: Date;
+  like: number;
 
   @Column()
-  updatedAt!: Date;
+  createdAt: Date;
+
+  @Column()
+  updatedAt: Date;
+
+  async getRandomList({ take }: Pick<PaginationParam, 'take'>) {
+    return { list: await this.collection.aggregate([{ $sample: { size: take } }]).toArray() };
+  }
+
+  async insertOne({{name}}: {{NAME}}InsertParams) {
+    const id = await this.collection
+      .insertOne({
+        ...{{name}},
+        like: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .then(result => result.insertedId);
+    return this.collection.findOne({ _id: new ObjectID(id) });
+  }
+
+  async deleteOne(id: {{NAME}}ID) {
+    await this.collection.deleteOne({ _id: new ObjectID(id) });
+    return [id];
+  }
+
+  async updateOne(id: {{NAME}}ID, {{name}}: {{NAME}}UpdateParams) {
+    await this.collection.updateOne(
+      { _id: new ObjectID(id) },
+      { $set: { ...{{name}}, updatedAt: new Date() } },
+    );
+    return this.collection.findOne({ _id: new ObjectID(id) });
+  }
+
+  async findOne(id: {{NAME}}ID) {
+    return this.collection.findOne({ _id: new ObjectID(id) });
+  }
 
 }
+
+export type {{NAME}}Collection = {{NAME}}Entity['collection'];
 `;
