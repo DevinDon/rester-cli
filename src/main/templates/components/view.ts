@@ -24,7 +24,13 @@ export class {{NAME}}View extends BaseView {
     requiredParams(content);
     return new ResterResponse({
       statusCode: 201,
-      data: await this.entity.insertOne({ author, content }),
+      data: await this.entity.insertOne({
+        author,
+        content,
+        like: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }),
     });
   }
 
@@ -40,7 +46,7 @@ export class {{NAME}}View extends BaseView {
   ) {
     requiredAtLeastOneParam(author, content);
     return new ExistResponse({
-      data: await this.entity.updateOne(id, cleanify({ author, content })),
+      data: await this.entity.updateOne(id, cleanify({ author, content, updateAt: new Date() })),
       message: '{{NAME}} not found.',
     });
   }

@@ -26,14 +26,9 @@ export class {{NAME}}Entity extends MongoEntity<{{NAME}}> implements {{NAME}} {
     return { list: await this.collection.aggregate([{ $sample: { size: take } }]).toArray() };
   }
 
-  async insertOne({{name}}: {{NAME}}InsertParams) {
+  async insertOne({{name}}: {{NAME}}) {
     const id = await this.collection
-      .insertOne({
-        ...{{name}},
-        like: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      })
+      .insertOne({{name}})
       .then(result => result.insertedId);
     return this.collection.findOne({ _id: new ObjectID(id) });
   }
@@ -43,10 +38,10 @@ export class {{NAME}}Entity extends MongoEntity<{{NAME}}> implements {{NAME}} {
     return [id];
   }
 
-  async updateOne(id: {{NAME}}ID, {{name}}: {{NAME}}UpdateParams) {
+  async updateOne(id: {{NAME}}ID, {{name}}: Partial<{{NAME}}>) {
     await this.collection.updateOne(
       { _id: new ObjectID(id) },
-      { $set: { ...{{name}}, updatedAt: new Date() } },
+      { $set: {{name}} },
     );
     return this.collection.findOne({ _id: new ObjectID(id) });
   }
