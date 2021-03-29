@@ -1,5 +1,5 @@
 export const ENTITY = `import { Column, Entity, MongoEntity, ObjectID, PaginationParam } from '@rester/orm';
-import { {{NAME}}, {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
+import { {{NAME}}, {{NAME}}ID } from './{{name}}.model';
 
 @Entity({ name: '{{name}}' })
 export class {{NAME}}Entity extends MongoEntity<{{NAME}}> implements {{NAME}} {
