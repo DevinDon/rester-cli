@@ -1,4 +1,4 @@
-export const VIEW = `import { BaseView, cleanify, DELETE, ExistResponse, GET, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, ResterResponse, View } from '@rester/core';
+export const VIEW = `import { BaseView, cleanify, DELETE, ExistResponse, GET, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, View } from '@rester/core';
 import { getEntity } from '@rester/orm';
 import { {{NAME}}Collection, {{NAME}}Entity } from './{{name}}.entity';
 import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
@@ -22,7 +22,7 @@ export class {{NAME}}View extends BaseView {
     @RequestBody() { author, content }: {{NAME}}InsertParams,
   ) {
     requiredParams(content);
-    return new ResterResponse({
+    return new ExistResponse({
       statusCode: 201,
       data: await this.entity.insertOne({
         author,
@@ -31,6 +31,7 @@ export class {{NAME}}View extends BaseView {
         createdAt: new Date(),
         updatedAt: new Date(),
       }),
+      message: '{{NAME}} created failed.',
     });
   }
 
