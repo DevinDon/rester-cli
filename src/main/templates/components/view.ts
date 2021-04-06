@@ -1,6 +1,6 @@
 export const VIEW = `import { BaseView, cleanify, DELETE, ExistResponse, GET, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, View } from '@rester/core';
 import { getEntity } from '@rester/orm';
-import { {{NAME}}Collection, {{NAME}}Entity } from './{{name}}.entity';
+import { {{NAME}}Entity } from './{{name}}.entity';
 import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
 
 // create, remove, modify, take, search
@@ -10,11 +10,9 @@ import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name
 export class {{NAME}}View extends BaseView {
 
   private entity: {{NAME}}Entity;
-  private collection: {{NAME}}Collection;
 
   async init() {
     this.entity = getEntity({{NAME}}Entity);
-    this.collection = this.entity.collection;
   }
 
   @POST()
@@ -67,7 +65,7 @@ export class {{NAME}}View extends BaseView {
 
 export const VIEWS = `import { BaseView, GET, PathQuery, View } from '@rester/core';
 import { getEntity, Pagination } from '@rester/orm';
-import { {{NAME}}Collection, {{NAME}}Entity } from './{{name}}.entity';
+import { {{NAME}}Entity } from './{{name}}.entity';
 
 // create, remove, modify, take, search
 // one, more
@@ -76,11 +74,9 @@ import { {{NAME}}Collection, {{NAME}}Entity } from './{{name}}.entity';
 export class {{NAME}}sView extends BaseView {
 
   private entity: {{NAME}}Entity;
-  private collection: {{NAME}}Collection;
 
   async init() {
     this.entity = getEntity({{NAME}}Entity);
-    this.collection = this.entity.collection;
   }
 
   @GET()

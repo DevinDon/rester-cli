@@ -16,5 +16,5 @@ export type {{NAME}}ID = string;
 
 export type {{NAME}}InsertParams = Pick<{{NAME}}, 'content'> & Partial<Pick<{{NAME}}, 'author'>>;
 
-export type {{NAME}}UpdateParams = Partial<Pick<{{NAME}}, 'author' | 'content'>>;
+export type {{NAME}}UpdateParams = Partial<{{NAME}}InsertParams>;
 `;
