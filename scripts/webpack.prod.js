@@ -1,8 +1,9 @@
 const { resolve } = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: resolve('src/main/index.ts'),
+  entry: resolve('src/index.ts'),
   // devtool: 'inline-source-map',
   output: {
     path: resolve('bin'),
@@ -20,13 +21,12 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts'],
   },
-  externals: (() => {
-    const dependencies = require('../package.json').devDependencies;
-    const externals = {};
-    for (const dependency in dependencies) {
-      externals[dependency] = 'commonjs ' + dependency;
-    }
-    return externals;
-  })(),
   target: 'node',
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'templates', to: 'templates', noErrorOnMissing: true },
+      ],
+    }),
+  ],
 };

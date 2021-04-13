@@ -19,13 +19,13 @@ export const generateHandler = (name: string) => {
   }
   writeFileSync(
     file,
-    HANDLER
+    HANDLER()
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
   );
   appendFileSync(
     `${folder}/index.ts`,
-    HANDLER_INDEX
+    HANDLER_INDEX()
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
   );

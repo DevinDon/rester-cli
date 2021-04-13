@@ -1,7 +1,7 @@
 import { existsSync, writeFileSync } from 'fs';
 import { mkdir } from 'shelljs';
 import { BASE } from '../constants';
-import { COMPONENT_INDEX, ENTITY, MODEL, VIEW, VIEWS } from '../templates';
+import { COMPONENT_INDEX, ENTITY, MODEL, VIEW, VIEWS, VIEWSTEST, VIEWTEST } from '../templates';
 
 interface Params {
   lowercase: string;
@@ -24,6 +24,7 @@ export const generateComponent = (name: string) => {
   generateComponentModel(params);
   generateComponentEntity(params);
   generateComponentView(params);
+  generateComponentViewTest(params);
   // generateComponentController(params);
   generateComponentIndex(params);
 };
@@ -31,7 +32,7 @@ export const generateComponent = (name: string) => {
 export const generateComponentModel = ({ lowercase, uppercase, folder }: Params) => {
   writeFileSync(
     `${folder}/${lowercase}.model.ts`,
-    MODEL
+    MODEL()
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
   );
@@ -40,7 +41,7 @@ export const generateComponentModel = ({ lowercase, uppercase, folder }: Params)
 export const generateComponentEntity = ({ lowercase, uppercase, folder }: Params) => {
   writeFileSync(
     `${folder}/${lowercase}.entity.ts`,
-    ENTITY
+    ENTITY()
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
   );
@@ -49,13 +50,13 @@ export const generateComponentEntity = ({ lowercase, uppercase, folder }: Params
 export const generateComponentView = ({ lowercase, uppercase, folder }: Params) => {
   writeFileSync(
     `${folder}/${lowercase}.view.ts`,
-    VIEW
+    VIEW()
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
   );
   writeFileSync(
     `${folder}/${lowercase}s.view.ts`,
-    VIEWS
+    VIEWS()
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
   );
@@ -73,7 +74,22 @@ export const generateComponentView = ({ lowercase, uppercase, folder }: Params) 
 export const generateComponentIndex = ({ lowercase, uppercase, folder }: Params) => {
   writeFileSync(
     `${folder}/index.ts`,
-    COMPONENT_INDEX
+    COMPONENT_INDEX()
+      .replace(/\{\{NAME\}\}/g, uppercase)
+      .replace(/\{\{name\}\}/g, lowercase),
+  );
+};
+
+export const generateComponentViewTest = ({ lowercase, uppercase, folder }: Params) => {
+  writeFileSync(
+    `${folder}/${lowercase}.test.ts`,
+    VIEWTEST()
+      .replace(/\{\{NAME\}\}/g, uppercase)
+      .replace(/\{\{name\}\}/g, lowercase),
+  );
+  writeFileSync(
+    `${folder}/${lowercase}s.test.ts`,
+    VIEWSTEST()
       .replace(/\{\{NAME\}\}/g, uppercase)
       .replace(/\{\{name\}\}/g, lowercase),
   );

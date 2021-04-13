@@ -1,4 +1,4 @@
-export const VIEW = `import { BaseView, cleanify, DELETE, ExistResponse, GET, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, View } from '@rester/core';
+import { BaseView, cleanify, DELETE, ExistResponse, GET, PathVariable, POST, PUT, RequestBody, requiredAtLeastOneParam, requiredParams, View } from '@rester/core';
 import { getEntity } from '@rester/orm';
 import { {{NAME}}Entity } from './{{name}}.entity';
 import { {{NAME}}ID, {{NAME}}InsertParams, {{NAME}}UpdateParams } from './{{name}}.model';
@@ -61,34 +61,3 @@ export class {{NAME}}View extends BaseView {
   }
 
 }
-`;
-
-export const VIEWS = `import { BaseView, GET, PathQuery, View } from '@rester/core';
-import { getEntity, Pagination } from '@rester/orm';
-import { {{NAME}}Entity } from './{{name}}.entity';
-
-// create, remove, modify, take, search
-// one, more
-
-@View('{{name}}s')
-export class {{NAME}}sView extends BaseView {
-
-  private entity: {{NAME}}Entity;
-
-  async init() {
-    this.entity = getEntity({{NAME}}Entity);
-  }
-
-  @GET()
-  async take(
-    @PathQuery('random') random: boolean = false,
-    @PathQuery('from') from: string = '000000000000000000000000',
-    @PathQuery('take') take: number = 10,
-  ): Promise<Pagination<string>> {
-    return random
-      ? this.entity.getRandomList({ take })
-      : this.entity.getPagination({ from, take });
-  }
-
-}
-`;

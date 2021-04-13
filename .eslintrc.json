@@ -4,6 +4,7 @@
     "node": true
   },
   "ignorePatterns": [
+    "bin/**/*",
     "dist/**/*",
     "out/**/*",
     "temp/**/*"

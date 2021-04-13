@@ -1,4 +1,4 @@
-export const HANDLER = `import { BaseHandler } from '@rester/core';
+import { BaseHandler } from '@rester/core';
 
 export class {{NAME}}Handler extends BaseHandler {
 
@@ -7,4 +7,3 @@ export class {{NAME}}Handler extends BaseHandler {
   }
 
 }
-`;

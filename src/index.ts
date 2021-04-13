@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { generateComponent, generateHandler } from './generators';
 import { GenerateType } from './model';
 
-export const VERSION = require('../../package.json').version;
+export const VERSION = require('../package.json').version;
 export const program = new Command();
 
 // describe this project

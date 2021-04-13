@@ -1,4 +1,4 @@
-export const MODEL = `export interface {{NAME}} {
+export interface {{NAME}} {
 
   author?: string;
 
@@ -17,4 +17,3 @@ export type {{NAME}}ID = string;
 export type {{NAME}}InsertParams = Pick<{{NAME}}, 'content'> & Partial<Pick<{{NAME}}, 'author'>>;
 
 export type {{NAME}}UpdateParams = Partial<{{NAME}}InsertParams>;
-`;
