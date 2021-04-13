@@ -2,5 +2,5 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 export const ENTITY = () => readFileSync(
-  join('templates', 'entity.template'),
+  join(__dirname, 'templates', 'entity.template'),
 ).toString();

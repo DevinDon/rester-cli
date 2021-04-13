@@ -23,7 +23,7 @@
     "dev": "cross-env MODE=DEV node -r ts-node/register src/index.ts",
     "prepublishOnly": "npm run clean && npm run build",
     "prod": "cross-env MODE=PROD node bin",
-    "start": "npm run dev",
+    "start": "npm run build && node bin/index.js",
     "lint": "eslint . --fix",
     "test": "node node_modules/jasmine/bin/jasmine.js --config=jasmine.json --reporter=jasmine-console-reporter --require=ts-node/register"
   },

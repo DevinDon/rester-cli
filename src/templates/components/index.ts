@@ -6,5 +6,5 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 export const COMPONENT_INDEX = () => readFileSync(
-  join('templates', 'component-index.template'),
+  join(__dirname, 'templates', 'component-index.template'),
 ).toString();

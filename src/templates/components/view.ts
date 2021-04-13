@@ -2,9 +2,9 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 
 export const VIEW = () => readFileSync(
-  join('templates', 'view.template'),
+  join(__dirname, 'templates', 'view.template'),
 ).toString();
 
 export const VIEWS = () => readFileSync(
-  join('templates', 'views.template'),
+  join(__dirname, 'templates', 'views.template'),
 ).toString();
