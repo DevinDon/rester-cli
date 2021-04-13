@@ -1,1 +1,1 @@
-export const BASE = 'src/main';
+export const BASE = 'src';
