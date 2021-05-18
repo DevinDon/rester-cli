@@ -19,7 +19,7 @@ export class {{NAME}}View extends BaseView {
   async create(
     @RequestBody() { author, content }: {{NAME}}InsertParams,
   ) {
-    requiredParams(content);
+    requiredParams({ content });
     return new ExistResponse({
       statusCode: 201,
       data: await this.entity.insertOne({
@@ -43,7 +43,7 @@ export class {{NAME}}View extends BaseView {
     @PathVariable('id') id: {{NAME}}ID,
     @RequestBody() { author, content }: {{NAME}}UpdateParams,
   ) {
-    requiredAtLeastOneParam(author, content);
+    requiredAtLeastOneParam({ author, content });
     return new ExistResponse({
       data: await this.entity.updateOne(id, cleanify({ author, content, updateAt: new Date() })),
       message: '{{NAME}} not found.',
